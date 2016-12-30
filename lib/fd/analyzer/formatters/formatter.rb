@@ -12,8 +12,8 @@ module FD
           json["engine_name"] = current_engine.name
 
           case json["type"].downcase
-          when "issue"
-            issues << json
+          when "feature"
+            features << json
           when "warning"
             warnings << json
           else

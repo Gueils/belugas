@@ -1,6 +1,7 @@
 module FD
   module Analyzer
     class EngineOutput < CC::Analyzer::EngineOutput
+      delegate :to_json, to: :as_feature
       def feature?
         parsed_output &&
           parsed_output["type"].present? &&

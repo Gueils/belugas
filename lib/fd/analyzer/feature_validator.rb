@@ -13,7 +13,7 @@ module FD
 
       def validate
         return @valid unless @valid.nil?
-        debugger
+
         if feature && invalid_messages.any?
           @error = {
             message: "#{invalid_messages.join("; ")}: `#{feature}`.",
