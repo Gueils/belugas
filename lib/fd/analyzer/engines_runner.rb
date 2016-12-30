@@ -16,16 +16,11 @@ module FD
         @container_label = container_label
       end
 
-      def run(container_listener = ContainerListener.new)
-        debugger
+      def run(container_listener = ::CC::Analyzer::ContainerListener.new)
         raise NoEnabledEngines if engines.empty?
-        debugger
         @formatter.started
-        debugger
         engines.each { |engine| run_engine(engine, container_listener) }
-        debugger
         @formatter.finished
-        debugger
       ensure
         @formatter.close if @formatter.respond_to?(:close)
       end
@@ -35,7 +30,6 @@ module FD
       attr_reader :requested_paths
 
       def build_engine(built_config)
-        debugger
         Engine.new(
           built_config.name,
           built_config.registry_entry,
@@ -48,7 +42,7 @@ module FD
       def configs
         EnginesConfigBuilder.new(
           registry: @registry,
-          # config: @config,
+          # config: (@config || {}),
           container_label: @container_label,
           source_dir: @source_dir,
           requested_paths: requested_paths,

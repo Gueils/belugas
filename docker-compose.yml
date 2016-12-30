@@ -36,3 +36,7 @@ services:
 
     # The command:
     command: guard
+
+    environment:
+      FEATURE_DETECTOR_DOCKER: "true"
+      FEATURE_DETECTOR_CODE: ${FEATURE_DETECTOR_CODE}

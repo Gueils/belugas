@@ -22,5 +22,10 @@ RUN set -ex \
 	&& rmdir docker \
 	&& rm docker.tgz
 
-# 5: Set the default command:
+# 5: Install the current project gems - they can be safely changed later during development via
+# `bundle install` or `bundle update`:
+ADD Gemfile* /usr/src/app/
+RUN set -ex && bundle install --jobs=4
+
+# 6: Set the default command:
 CMD ["guard"]

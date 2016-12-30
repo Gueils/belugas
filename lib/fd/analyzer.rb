@@ -1,11 +1,10 @@
-require "yaml"
+require 'cc/analyzer'
 
 module FD
   module Analyzer
     autoload :CompositeContainerListener, "fd/analyzer/composite_container_listener"
     autoload :Config, "fd/analyzer/config"
     autoload :Container, "fd/analyzer/container"
-    autoload :ContainerListener, "fd/analyzer/container_listener"
     autoload :Engine, "fd/analyzer/engine"
     autoload :EngineOutput, "fd/analyzer/engine_output"
     autoload :EngineOutputFilter, "fd/analyzer/engine_output_filter"

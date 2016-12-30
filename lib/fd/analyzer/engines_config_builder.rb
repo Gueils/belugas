@@ -24,9 +24,10 @@ module FD
         :container_label,
       )
 
-      def initialize(registry:, config: nil, container_label:, source_dir:, requested_paths:)
+      # def initialize(registry:, config: nil, container_label:, source_dir:, requested_paths:)
+      def initialize(registry:, container_label:, source_dir:, requested_paths:)
         @registry = RegistryAdapter.new(registry)
-        @config = config
+        # @config = config
         @container_label = container_label
         @requested_paths = requested_paths
         @source_dir = source_dir
@@ -36,8 +37,8 @@ module FD
         # names_and_raw_engine_configs.map do |name, raw_engine_config|
         @registry.list.map do |name, raw_engine_config|
           label = @container_label || SecureRandom.uuid
-          engine_config = engine_config(raw_engine_config)
-          engine_metadata = @registry.fetch(name, raw_engine_config.channel)
+          engine_config = engine_config({}) # There's no configuration on Feature Detector...
+          engine_metadata = @registry.fetch(name, 'stable')
           Result.new(name, engine_metadata, @source_dir, engine_config, label)
         end
       end
@@ -64,17 +65,6 @@ module FD
           base_workspace
         end
       end
-
-      # def names_and_raw_engine_configs
-      #   {}.tap do |ret|
-      #     # (@config.engines || {}).each do |name, raw_engine_config|
-      #     ({}).each do |name, raw_engine_config|
-      #       if raw_engine_config.enabled? && @registry.key?(name)
-      #         ret[name] = raw_engine_config
-      #       end
-      #     end
-      #   end
-      # end
 
       def base_workspace
         @base_workspace ||= Workspace.new.tap do |workspace|
