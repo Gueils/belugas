@@ -1,0 +1,38 @@
+version: '2.1'
+
+volumes:
+  feature-detector-gems:
+    driver: local
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: icalialabs/feature-detector:development
+
+    volumes:
+      # Mount our app code directory (".") into our app containers at the `/usr/src/lib` folder:
+      - .:/usr/src/app
+      # Mount the 'feature-detector-gems' volume on the folder that stores bundled gems:
+      - feature-detector-gems:/usr/local/bundle
+
+      # Mount some example projects:
+      - ${FEATURE_DETECTOR_CODE}:/code
+
+      # Mount the docker socket:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # Mount the temporary folder:
+      - ./tmp/fdet:/tmp/fdet
+
+    # Keep the stdin open, so we can attach to our app container's process
+    # and do things such as byebug, etc:
+    stdin_open: true
+
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+
+    # The command:
+    command: guard
