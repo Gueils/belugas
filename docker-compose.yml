@@ -10,7 +10,7 @@ services:
     build:
       context: .
       dockerfile: dev.Dockerfile
-    image: icalialabs/feature-detector:development
+    image: icalialabs/belugas:development
     entrypoint: /usr/src/app/development-entrypoint
     volumes:
       # Mount our app code directory (".") into our app containers at the `/usr/src/lib` folder:
@@ -20,7 +20,7 @@ services:
       - app-gems:/usr/local/bundle
 
       # Mount some example projects:
-      - ${FEATURE_DETECTOR_CODE}:/code
+      - ${BELUGAS_CODE}:/code
 
       # Mount the docker socket:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -39,5 +39,5 @@ services:
     command: guard
 
     environment:
-      FEATURE_DETECTOR_DOCKER: "true"
-      FEATURE_DETECTOR_CODE: ${FEATURE_DETECTOR_CODE}
+      BELUGAS_DOCKER: "true"
+      BELUGAS_CODE: ${BELUGAS_CODE}
