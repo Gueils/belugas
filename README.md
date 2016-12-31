@@ -1,9 +1,11 @@
 # Icalia Labs Belugas CLI
 
+![belugas](belugas.png)
+
 ## Overview
 
-`belugas` is a command line interface for the Feature Detector analysis
-platform. It allows you to run Feature Detector engines on your local machine inside
+`belugas` is a command line interface for the Belugas feature detection analysis
+platform. It allows you to run feature detector engines on your local machine inside
 of Docker containers.
 
 ## Prerequisites
