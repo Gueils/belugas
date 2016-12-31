@@ -21,6 +21,7 @@ docker pull icalialabs/belugas:latest
 
 ## Usage
 
+### 1: Standard (Non-development)
 ```console
 docker run \
   --interactive --tty --rm \
@@ -29,6 +30,15 @@ docker run \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /tmp/fdet:/tmp/fdet \
   icalialabs/belugas analyze
+```
+
+### 2: Development:
+
+Copy the `example.env` file to `.env`, and edit it so the `BELUGAS_CODE` points to a folder in your
+host. Then:
+
+```
+plis run app belugas analyze . -f json
 ```
 
 ## Packages
