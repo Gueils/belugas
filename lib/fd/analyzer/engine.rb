@@ -18,7 +18,7 @@ module FD
         @label = label.to_s
       end
 
-      def run(stdout_io, container_listener)
+      def run(stdout_io, container_listener, &block)
         composite_listener = CompositeContainerListener.new(
           container_listener,
           LoggingContainerListener.new(qualified_name, Analyzer.logger),
@@ -45,9 +45,13 @@ module FD
           unless output_filter.filter?(output)
             stdout_io.write(output.to_json) || container.stop
           end
+
+          block.call output.as_feature if block_given? && output.feature?
         end
 
         write_config_file
+        write_input_detected_features_file
+
         CLI.debug("#{qualified_name} engine config: #{config_file.read}")
         container.run(container_options).tap do |result|
           CLI.debug("#{qualified_name} engine stderr: #{result.stderr}")
@@ -59,6 +63,11 @@ module FD
         raise Container::ImageRequired, message
       ensure
         delete_config_file
+        delete_input_detected_features_file
+      end
+
+      def input_detected_features_file
+        @input_detected_features_file ||= MountedPath.tmp.join(SecureRandom.uuid)
       end
 
       private
@@ -77,12 +86,13 @@ module FD
           "--rm",
           "--volume", "#{@code_path}:/code:ro",
           "--volume", "#{config_file.host_path}:/config.json:ro",
+          "--volume", "#{input_detected_features_file.host_path}:/previous-engine-results.json:ro",
           "--user", "9000:9000"
         ]
       end
 
       def container_name
-        @container_name ||= "cc-engines-#{qualified_name.tr(":", "-")}-#{SecureRandom.uuid}"
+        @container_name ||= "fd-engines-#{qualified_name.tr(":", "-")}-#{SecureRandom.uuid}"
       end
 
       def write_config_file
@@ -95,6 +105,14 @@ module FD
 
       def config_file
         @config_file ||= MountedPath.tmp.join(SecureRandom.uuid)
+      end
+
+      def write_input_detected_features_file
+        input_detected_features_file.write([].to_json)
+      end
+
+      def delete_input_detected_features_file
+        input_detected_features_file if input_detected_features_file.file?
       end
 
       def output_filter

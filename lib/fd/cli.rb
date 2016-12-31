@@ -3,7 +3,6 @@ require "active_support/core_ext"
 require "yaml"
 require "fd/analyzer"
 require "fd/workspace"
-# require "fd/yaml"
 
 module FD
   module CLI

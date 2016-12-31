@@ -1,7 +1,7 @@
 version: '2.1'
 
 volumes:
-  feature-detector-gems:
+  app-gems:
     driver: local
 
 services:
@@ -11,12 +11,13 @@ services:
       context: .
       dockerfile: dev.Dockerfile
     image: icalialabs/feature-detector:development
-
+    entrypoint: /usr/src/app/development-entrypoint
     volumes:
       # Mount our app code directory (".") into our app containers at the `/usr/src/lib` folder:
       - .:/usr/src/app
-      # Mount the 'feature-detector-gems' volume on the folder that stores bundled gems:
-      - feature-detector-gems:/usr/local/bundle
+
+      # Mount the 'app-gems' volume on the folder that stores bundled gems:
+      - app-gems:/usr/local/bundle
 
       # Mount some example projects:
       - ${FEATURE_DETECTOR_CODE}:/code
