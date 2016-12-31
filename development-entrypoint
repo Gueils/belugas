@@ -19,9 +19,9 @@ function wait_setup { echo "Waiting for app setup to finish..."; sleep $APP_SETU
 trap unlock_setup HUP INT QUIT KILL TERM EXIT
 
 # 3: Specify a default command, in case it wasn't issued:
-if [ -z "$1" ]; then set -- feature-detector "$@"; fi
+if [ -z "$1" ]; then set -- belugas "$@"; fi
 
-if [[ "$1" = "feature-detector" || "$1" = "guard" ]]
+if [[ "$1" = "belugas" || "$1" = "guard" ]]
 then
   # 3: Wait until the setup 'lock' file no longer exists:
   while [ -f $APP_SETUP_LOCK ]; do wait_setup; done

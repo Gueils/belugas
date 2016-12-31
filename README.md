@@ -1,35 +1,46 @@
-# Icalia Labs Feature Detector CLI
+# Icalia Labs Belugas CLI
+
+![belugas](belugas.png)
 
 ## Overview
 
-`feature-detector` is a command line interface for the Feature Detector analysis
-platform. It allows you to run Feature Detector engines on your local machine inside
+`belugas` is a command line interface for the Belugas feature detection analysis
+platform. It allows you to run feature detector engines on your local machine inside
 of Docker containers.
 
 ## Prerequisites
 
-The Feature Detector CLI is distributed and run as a
-[Docker](https://www.docker.com) image. The engines that perform the actual
-analyses are also Docker images. To support this, you must have Docker installed
+The Belugas CLI is distributed and run as a [Docker](https://www.docker.com) image. The engines that
+perform the actual analyses are also Docker images. To support this, you must have Docker installed
 and running locally. We also require that the Docker daemon supports connections
 on the default Unix socket `/var/run/docker.sock`.
 
 ## Installation
 
 ```console
-docker pull icalialabs/feature-detector
+docker pull icalialabs/belugas:latest
 ```
 
 ## Usage
 
+### 1: Standard (Non-development)
 ```console
 docker run \
   --interactive --tty --rm \
-  --env FEATURE_DETECTOR_CODE="$PWD" \
+  --env BELUGAS_CODE="$PWD" \
   --volume "$PWD":/code \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /tmp/fdet:/tmp/fdet \
-  icalialabs/feature-detector help
+  icalialabs/belugas analyze
+```
+
+### 2: Development:
+
+Copy the `example.env` file to `.env`, and edit it so the `BELUGAS_CODE` points to a folder in your
+host. Then:
+
+```
+plis run app belugas analyze . -f json
 ```
 
 ## Packages
@@ -45,30 +56,30 @@ invocation:
 
 ```console
 brew tap icalialabs/formulae
-brew install icalia-feature-detector
+brew install icalia-belugas
 ```
 
 To update the brew package, use `brew update` first:
 
 ```console
 brew update
-brew upgrade icalia-feature-detector
+brew upgrade icalia-belugas
 ```
 
 ### Anywhere
 
 ```console
-curl -L https://github.com/IcaliaLabs/feature-detector/archive/master.tar.gz | tar xvz
-cd feature-detector-* && sudo make install
+curl -L https://github.com/IcaliaLabs/belugas/archive/master.tar.gz | tar xvz
+cd belugas-* && sudo make install
 ```
 
 ## Commands
 
-A list of available commands is accessible by running `feature-detector` or
-`feature-detector help`.
+A list of available commands is accessible by running `belugas` or
+`belugas help`.
 
 ```console
-$ feature-detector help
+$ belugas help
 
 Available commands:
     analyze [-f format] [-e engine(:channel)] [--dev] [path]
@@ -127,7 +138,7 @@ The following is a brief explanation of each available command.
 * To run `codeclimate` in debug mode:
 
   ```
-  CODECLIMATE_DEBUG=1 feature-detector analyze
+  CODECLIMATE_DEBUG=1 belugas analyze
   ```
 
   Prints additional information about the analysis steps, including any stderr
@@ -137,7 +148,7 @@ The following is a brief explanation of each available command.
 
   ```
   # 30 minutes
-  CONTAINER_TIMEOUT_SECONDS=1800 feature-detector analyze
+  CONTAINER_TIMEOUT_SECONDS=1800 belugas analyze
   ```
 
 * You can also configure the default alotted memory with which each engine runs
@@ -145,7 +156,7 @@ The following is a brief explanation of each available command.
 
   ```
   # 100,000,0000 bytes
-  ENGINE_MEMORY_LIMIT_BYTES=1000000000 feature-detector analyze
+  ENGINE_MEMORY_LIMIT_BYTES=1000000000 belugas analyze
   ```
 
 ## Copyright
