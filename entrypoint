@@ -1,0 +1,14 @@
+#! /bin/sh
+
+# The Docker App Container's entrypoint.
+# This is a script used by the docker container to fill missing parameters, etc:
+set -e
+
+# 3: Specify a default command, in case it wasn't issued:
+if [ -z "$1" ] || [ "$1" != 'belugas' ]
+then
+  set -- belugas "$@"
+fi
+
+# 4: Execute the given or default command:
+exec "$@"

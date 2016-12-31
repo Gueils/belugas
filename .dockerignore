@@ -1,0 +1,39 @@
+# Ignore version control files:
+.git/
+.gitignore
+
+# Ignore docker and environment files:
+**/*Dockerfile
+docker-compose.yml
+**/*.env
+development-entrypoint
+.dockerignore
+
+# Ignore log files:
+log/*.log
+
+# Ignore temporary files:
+tmp/
+
+# Ignore test files:
+.rspec
+Guardfile
+spec/
+
+# Ignore OS artifacts:
+**/.DS_Store
+
+.rspec
+
+# Ignore bundler cache:
+.bundle
+
+# Ignore bash / IRB / Byebug history files
+.*_hist*
+
+# Ignore development executables:
+bin/console
+bin/setup
+
+# Ignore the engine spec documentation - there's no case it should be distributed:
+documented-spec/
