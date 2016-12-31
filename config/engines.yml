@@ -11,7 +11,7 @@
 #
 linguist:
   channels:
-    stable: icalialabs/belugas-linguist
+    stable: icalialabs/belugas-linguist:latest
   description: Detects the programming languages used in the analyzed project
   community: true
 
