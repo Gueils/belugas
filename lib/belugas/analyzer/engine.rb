@@ -33,6 +33,10 @@ module Belugas
           listener: composite_listener,
         )
 
+        # Although the final belugas output is buffered completely due to detected features needing
+        # a post-processing during each stage, we will still need the engines to stream their output
+        # and us to capture the output in parallel, as we might launch other engines in parallel
+        # whenever we detect that the requirements for each engine is met:
         container.on_output("\0") do |raw_output|
           CLI.debug("#{qualified_name} engine output: #{raw_output.strip}")
           output = EngineOutput.new(raw_output)
