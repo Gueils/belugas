@@ -18,7 +18,7 @@ module Belugas
         @label = label.to_s
       end
 
-      def run(stdout_io, container_listener, &block)
+      def run(results_io, container_listener)
         composite_listener = CompositeContainerListener.new(
           container_listener,
           LoggingContainerListener.new(qualified_name, Analyzer.logger),
@@ -38,15 +38,13 @@ module Belugas
           output = EngineOutput.new(raw_output)
 
           unless output.valid?
-            stdout_io.failed("#{qualified_name} produced invalid output: #{output.error[:message]}")
+            results_io.failed("#{qualified_name} produced invalid output: #{output.error[:message]}")
             container.stop
           end
 
           unless output_filter.filter?(output)
-            stdout_io.write(output.to_json) || container.stop
+            results_io.write(output) || container.stop
           end
-
-          block.call output.as_feature if block_given? && output.feature?
         end
 
         write_config_file

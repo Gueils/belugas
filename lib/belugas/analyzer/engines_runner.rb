@@ -18,20 +18,19 @@ module Belugas
 
       def run(container_listener = ::CC::Analyzer::ContainerListener.new)
         raise NoEnabledEngines if engines.empty?
-        @formatter.started
+
         @detected_features = []
 
         engines.each do |engine|
           write_detected_features_file_for engine
-          engine_detected_features = []
-
-          run_engine(engine, container_listener) do |detected_feature|
-            engine_detected_features << detected_feature
-          end
-
-          merge_detected_features engine_detected_features
+          merge_detected_features_from run_engine(engine, container_listener)
         end
 
+        # Buffered output:
+        @formatter.started
+        @detected_features.each do |detected_feature|
+          @formatter.write detected_feature.to_json
+        end
         @formatter.finished
       ensure
         @formatter.close if @formatter.respond_to?(:close)
@@ -43,7 +42,7 @@ module Belugas
         File.write engine.input_detected_features_file.container_path, @detected_features.to_json
       end
 
-      def merge_detected_features(new_detected_features)
+      def merge_detected_features_from(new_detected_features)
         feature_names = (@detected_features.map(&:name) + new_detected_features.map(&:name)).uniq
 
         @detected_features = feature_names.map do |feature_name|
@@ -84,9 +83,12 @@ module Belugas
         @engines ||= configs.map { |result| build_engine(result) }
       end
 
-      def run_engine(engine, container_listener, &block)
-        @formatter.engine_running(engine) do
-          engine.run(@formatter, container_listener, &block)
+      def run_engine(engine, container_listener)
+        engine_detected_features = ArrayWriter.new
+        engine.run(engine_detected_features, container_listener)
+        engine_detected_features.to_a.map do |feature|
+          feature.engines = [engine.name]
+          feature
         end
       end
     end

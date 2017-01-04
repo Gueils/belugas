@@ -17,7 +17,7 @@ module Belugas
 
         def write(data)
           document = JSON.parse(data)
-          document["engine_name"] = current_engine.name
+          # document["engine_name"] = current_engine.name
 
           if @has_begun
             print ",\n"

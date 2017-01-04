@@ -2,6 +2,8 @@ require 'cc/analyzer'
 
 module Belugas
   module Analyzer
+    autoload :ArrayWriter, 'belugas/analyzer/array_writer'
+
     autoload :CompositeContainerListener, "belugas/analyzer/composite_container_listener"
     autoload :Config, "belugas/analyzer/config"
     autoload :Container, "belugas/analyzer/container"
