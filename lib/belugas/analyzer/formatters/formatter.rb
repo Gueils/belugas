@@ -1,6 +1,11 @@
 module Belugas
   module Analyzer
     module Formatters
+      # = Belugas::Analyzer::Formatters::Formatter
+      #
+      # Unlike Codeclimate formatters - in which this codebase is heavily based on - the detected
+      # features are not meant to be streamed into the final STDOUT, but rather re-processed in a
+      # latter stage.
       class Formatter
         def initialize(filesystem, output = $stdout)
           @filesystem = filesystem
@@ -9,7 +14,7 @@ module Belugas
 
         def write(data)
           json = JSON.parse(data)
-          json["engine_name"] = current_engine.name
+          # json["engine_name"] = current_engine.name
 
           case json["type"].downcase
           when "feature"
@@ -22,13 +27,6 @@ module Belugas
         end
 
         def started
-        end
-
-        def engine_running(engine)
-          @current_engine = engine
-          yield
-        ensure
-          @current_engine = nil
         end
 
         def finished

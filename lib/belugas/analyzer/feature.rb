@@ -30,22 +30,29 @@ module Belugas
         raise ArgumentError unless other.is_a? Feature
         raise ArgumentError unless other.name == name
 
+        attributes = parsed_output.dup
+
         %w(categories cue_locations engines).each do |arrayish_key|
-          self.send "#{arrayish_key}=", (self.send(arrayish_key) + other.send(arrayish_key)).uniq
+          original_value = attributes.fetch arrayish_key, []
+          value_to_merge = other.send(arrayish_key)
+          next unless value_to_merge
+          attributes[arrayish_key] = (original_value + value_to_merge).uniq
         end
 
         %w(version).each do |refineable_key|
-          self.send "#{refineable_key}=", other.send(refineable_key)
+          value_to_refine = other.send(refineable_key)
+          next unless value_to_refine
+          attributes[refineable_key] = value_to_refine
         end
 
         %w(meta).each do |mergeable_key|
+          original_value = attributes.fetch mergeable_key, {}
           value_to_merge = other.send(mergeable_key)
-          if self.send(mergeable_key).nil?
-            self.send "#{mergeable_key}=", value_to_merge
-          elsif value_to_merge.present?
-            self.send(mergeable_key).merge! value_to_merge
-          end
+          next unless value_to_merge
+          attributes[mergeable_key] = original_value.merge value_to_merge
         end
+
+        self.class.new JSON.generate(attributes)
       end
 
       # Allow access to hash keys as methods
@@ -72,7 +79,7 @@ module Belugas
       end
 
       def parsed_output
-        @parsed_output ||= JSON.parse(output)
+        @parsed_output ||= JSON.parse(output).with_indifferent_access
       end
     end
   end
