@@ -23,6 +23,32 @@ ruby:
   run_if:
     linguist:
       - Ruby
+python:
+  channels:
+    stable: icalialabs/belugas-python:latest
+  description: Static analysis tool which detects features of python projects, including django, etc.
+  community: false
+  run_if:
+    linguist:
+      - Python
+      
+java:
+  channels:
+    stable: icalialabs/belugas-java:latest
+  description: Static analysis tool which detects features of java projects.
+  community: false
+  run_if:
+    linguist:
+      - Java
+  
+php:
+  channels:
+    stable: icalialabs/belugas-php:latest
+  description: Static analysis tool which detects features of php projects.
+  community: false
+  run_if:
+    linguist:
+      - Php
 
 # dotnet:
 #   channels:
