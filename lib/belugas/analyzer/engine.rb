@@ -10,11 +10,12 @@ module Belugas
 
       DEFAULT_MEMORY_LIMIT = 512_000_000.freeze
 
-      def initialize(name, metadata, code_path, config, label)
+      def initialize(name, metadata, code_path, config, label, run_rules)
         @name = name
         @metadata = metadata
         @code_path = code_path
         @config = config
+        @run_rules = run_rules
         @label = label.to_s
       end
 
@@ -72,7 +73,28 @@ module Belugas
         @input_detected_features_file ||= MountedPath.tmp.join(SecureRandom.uuid)
       end
 
+      def can_run?(partially_detected_features)
+        return true unless @run_rules.present?
+
+        dependency_engines_were_run?(partially_detected_features) &&
+        dependency_features_were_found?(partially_detected_features)
+      end
+
       private
+
+      def dependency_engines_were_run?(partially_detected_features)
+        run_dependencies_met? :engines, :engines, partially_detected_features
+      end
+
+      def dependency_features_were_found?(partially_detected_features)
+        run_dependencies_met? :features, :name, partially_detected_features
+      end
+
+      def run_dependencies_met?(rule_key, feature_key, partially_detected_features)
+        dependencies_to_meet = @run_rules.fetch(rule_key.to_s, []).sort
+        dependencies_found = partially_detected_features.map(&feature_key).flatten.uniq
+        (dependencies_to_meet & dependencies_found).sort == dependencies_to_meet
+      end
 
       def qualified_name
         "#{name}:#{@config.fetch("channel", "stable")}"

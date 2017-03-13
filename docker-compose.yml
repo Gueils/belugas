@@ -1,17 +1,16 @@
-version: '2.1'
+version: '3.1'
 
 volumes:
   app-gems:
     driver: local
 
 services:
-
   app:
+    image: icalialabs/belugas:development
     build:
       context: .
       dockerfile: dev.Dockerfile
-    image: icalialabs/belugas:development
-    entrypoint: /usr/src/app/development-entrypoint
+    entrypoint: /usr/src/app/bin/dev-entrypoint
     volumes:
       # Mount our app code directory (".") into our app containers at the `/usr/src/lib` folder:
       - .:/usr/src/app
@@ -20,7 +19,7 @@ services:
       - app-gems:/usr/local/bundle
 
       # Mount some example projects:
-      - ${BELUGAS_CODE}:/code
+      - ${BELUGAS_CODE:-./tmp/code_examples/example_project}:/code
 
       # Mount the docker socket:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -40,4 +39,4 @@ services:
 
     environment:
       BELUGAS_DOCKER: "true"
-      BELUGAS_CODE: ${BELUGAS_CODE}
+      BELUGAS_CODE: ${BELUGAS_CODE:-./tmp/code_examples/example_project}
