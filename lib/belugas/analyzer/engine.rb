@@ -76,18 +76,25 @@ module Belugas
       def can_run?(partially_detected_features)
         return true unless @run_rules.present?
 
-        dependency_engines = @run_rules.fetch('engines', []).sort
-        engines_ran = partially_detected_features.map(&:engines).flatten.uniq
-        dependency_engines_are_met = (dependency_engines & engines_ran).sort == dependency_engines
-
-        dependency_features = @run_rules.fetch('features', []).sort
-        features_found = partially_detected_features.map(&:name).flatten.uniq
-        dependency_features_are_met = (dependency_features & features_found).sort == dependency_features
-
-        dependency_engines_are_met && dependency_features_are_met
+        dependency_engines_were_run?(partially_detected_features) &&
+        dependency_features_were_found?(partially_detected_features)
       end
 
       private
+
+      def dependency_engines_were_run?(partially_detected_features)
+        run_dependencies_met? :engines, :engines, partially_detected_features
+      end
+
+      def dependency_features_were_found?(partially_detected_features)
+        run_dependencies_met? :features, :name, partially_detected_features
+      end
+
+      def run_dependencies_met?(rule_key, feature_key, partially_detected_features)
+        dependencies_to_meet = @run_rules.fetch(rule_key.to_s, []).sort
+        dependencies_found = partially_detected_features.map(&feature_key).flatten.uniq
+        (dependencies_to_meet & dependencies_found).sort == dependencies_to_meet
+      end
 
       def qualified_name
         "#{name}:#{@config.fetch("channel", "stable")}"
