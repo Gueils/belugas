@@ -10,11 +10,12 @@ module Belugas
 
       DEFAULT_MEMORY_LIMIT = 512_000_000.freeze
 
-      def initialize(name, metadata, code_path, config, label)
+      def initialize(name, metadata, code_path, config, label, run_rules)
         @name = name
         @metadata = metadata
         @code_path = code_path
         @config = config
+        @run_rules = run_rules
         @label = label.to_s
       end
 
@@ -70,6 +71,20 @@ module Belugas
 
       def input_detected_features_file
         @input_detected_features_file ||= MountedPath.tmp.join(SecureRandom.uuid)
+      end
+
+      def can_run?(partially_detected_features)
+        return true unless @run_rules.present?
+
+        dependency_engines = @run_rules.fetch('engines', []).sort
+        engines_ran = partially_detected_features.map(&:engines).flatten.uniq
+        dependency_engines_are_met = (dependency_engines & engines_ran).sort == dependency_engines
+
+        dependency_features = @run_rules.fetch('features', []).sort
+        features_found = partially_detected_features.map(&:name).flatten.uniq
+        dependency_features_are_met = (dependency_features & features_found).sort == dependency_features
+
+        dependency_engines_are_met && dependency_features_are_met
       end
 
       private

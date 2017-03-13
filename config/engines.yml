@@ -21,33 +21,44 @@ ruby:
   description: Static analysis tool which detects features of ruby projects, including rails, etc.
   community: false
   run_if:
-    linguist:
+    # Establishing an engine dependency: Engines that must run before this engine:
+    engines:
+      - linguist
+    # Establish a feature dependency: features that must been detected before running this engine:
+    features:
       - Ruby
+
 python:
   channels:
     stable: icalialabs/belugas-python:latest
   description: Static analysis tool which detects features of python projects, including django, etc.
   community: false
   run_if:
-    linguist:
+    engines:
+      - linguist
+    features:
       - Python
-      
+
 java:
   channels:
     stable: icalialabs/belugas-java:latest
   description: Static analysis tool which detects features of java projects.
   community: false
   run_if:
-    linguist:
+    engines:
+      - linguist
+    features:
       - Java
-  
+
 php:
   channels:
     stable: icalialabs/belugas-php:latest
   description: Static analysis tool which detects features of php projects.
   community: false
   run_if:
-    linguist:
+    engines::
+      - linguist
+    features:
       - Php
 
 # dotnet:

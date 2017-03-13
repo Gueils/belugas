@@ -22,6 +22,7 @@ module Belugas
         @detected_features = []
 
         engines.each do |engine|
+          next unless engine.can_run? @detected_features
           write_detected_features_file_for engine
           merge_detected_features_from run_engine(engine, container_listener)
         end
@@ -66,6 +67,7 @@ module Belugas
           built_config.code_path,
           built_config.config,
           built_config.container_label,
+          built_config.run_rules,
         )
       end
 

@@ -22,6 +22,7 @@ module Belugas
         :code_path,
         :config,
         :container_label,
+        :run_rules,
       )
 
       # def initialize(registry:, config: nil, container_label:, source_dir:, requested_paths:)
@@ -39,7 +40,8 @@ module Belugas
           label = @container_label || SecureRandom.uuid
           engine_config = engine_config({}) # There's no configuration on Feature Detector...
           engine_metadata = @registry.fetch(name, 'stable')
-          Result.new(name, engine_metadata, @source_dir, engine_config, label)
+          engine_run_rules = raw_engine_config['run_if']
+          Result.new(name, engine_metadata, @source_dir, engine_config, label, engine_run_rules)
         end
       end
 
