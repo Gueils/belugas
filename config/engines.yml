@@ -59,7 +59,7 @@ php:
     engines::
       - linguist
     features:
-      - Php
+      - PHP
 
 # dotnet:
 #   channels:
