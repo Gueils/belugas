@@ -54,3 +54,7 @@ build-iPhoneSimulator/
 !*example*.env
 
 .*_hist*
+
+# Vim temporal files
+*.swp
+*.swo
