@@ -6,6 +6,8 @@
 
 `belugas` is a command line interface for the Project Feature detection analysis platform. It allows you to run feature detector [engines](#belugas-engines) on your local machine inside of Docker containers. 
 
+`Belugas` general architecture was inspired by [Code Climate CLI](https://github.com/codeclimate/codeclimate).
+
 <p align="center">
   <img src="http://i.imgur.com/gMmucQk.gif">
 </p>
