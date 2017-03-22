@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/WhalesIL/belugas/badges/gpa.svg)](https://codeclimate.com/github/WhalesIL/belugas)
+
 <p align="center">
   <img src="belugas.png" height="300px" alt="Belugas" />
 </p>
@@ -23,16 +25,16 @@
 
 ## Why?
 
-`belugas` is part of the [Whales](https://github.com/IcaliaLabs/whales-cli) ecosystem: A set of tools to automatically dockerize your applications.
+`belugas` is part of the [Whales](https://github.com/WhalesIL/whales-cli) ecosystem: A set of tools to automatically dockerize your applications.
 
 ## Belugas Engines
 
 Belugas has a micro-service oriented architecture conformed by the following engines:
 
-- [Belugas Ruby](https://github.com/IcaliaLabs/belugas-ruby)
-- [Belugas PHP](https://github.com/IcaliaLabs/belugas)
-- [Belugas Python](https://github.com/IcaliaLabs/belugas-python)
-- [Belugas Java](https://github.com/IcaliaLabs/belugas-java) - _In progress_
+- [Belugas Ruby](https://github.com/WhalesIL/belugas-ruby)
+- [Belugas PHP](https://github.com/WhalesIL/belugas)
+- [Belugas Python](https://github.com/WhalesIL/belugas-python)
+- [Belugas Java](https://github.com/WhalesIL/belugas-java) - _In progress_
 
 Each of these engines is focus to detect multiple [features](#what-is-a-feature) on a project based on a code static analysis.
 
@@ -106,13 +108,13 @@ And voilá! The terminal will stream a json output for each of the features dete
 
 ## Contributing
 
-Everyone is freely to collaborate, just make sure you follow our [code of conduct](https://github.com/IcaliaLabs/belugas/blob/master/CODE_OF_CONDUCT.md). Thank you [contributors](https://github.com/IcaliaLabs/belugas/graphs/contributors)!
+Everyone is freely to collaborate, just make sure you follow our [code of conduct](https://github.com/WhalesIL/belugas/blob/master/CODE_OF_CONDUCT.md). Thank you [contributors](https://github.com/WhalesIL/belugas/graphs/contributors)!
 
 ### Create an Issue
 
-Find a bug and don't know how to fix it? Have trouble following the documentation or have a question about the project? Then by all means, please [create an issue](https://github.com/IcaliaLabs/belugas/issues/new).
+Find a bug and don't know how to fix it? Have trouble following the documentation or have a question about the project? Then by all means, please [create an issue](https://github.com/WhalesIL/belugas/issues/new).
 
-Just please make sure you check [existing issues](https://github.com/IcaliaLabs/belugas/issues) to see if what you're running into has been addressed already.
+Just please make sure you check [existing issues](https://github.com/WhalesIL/belugas/issues) to see if what you're running into has been addressed already.
 
 ### Submit a Pull Request
 
@@ -126,12 +128,12 @@ Once you've created a pull request, mainteners will chime in to review your prop
 
 ### I want to contribute but don't know where to start
 
-That's great also! We already have some [open issues](https://github.com/IcaliaLabs/belugas/issues) for you to dive in.
+That's great also! We already have some [open issues](https://github.com/WhalesIL/belugas/issues) for you to dive in.
 
 ## Credits
 
 See [LICENSE](LICENSE)
 
-![Icalia Labs](https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/logo.png)
+![Icalia Labs](https://raw.githubusercontent.com/icalialabs/kaishi/master/logo.png)
 
 Belugas is maintained by [Icalia Labs](http://www.icalialabs.com/team)
