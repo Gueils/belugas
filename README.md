@@ -1,4 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/WhalesIL/belugas/badges/gpa.svg)](https://codeclimate.com/github/WhalesIL/belugas)
+[![Build Status](https://travis-ci.org/WhalesIL/belugas.svg?branch=master)](https://travis-ci.org/WhalesIL/belugas)
 
 <p align="center">
   <img src="belugas.png" height="300px" alt="Belugas" />
@@ -25,7 +26,7 @@
 
 ## Why?
 
-`belugas` is part of the [Whales](https://github.com/WhalesIL/whales-cli) ecosystem: A set of tools to automatically dockerize your applications.
+`belugas` is part of the [Whales](https://github.com/WhalesIL/whales) ecosystem: A set of tools to automatically dockerize your applications.
 
 ## Belugas Engines
 
