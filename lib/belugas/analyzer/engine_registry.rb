@@ -9,7 +9,7 @@ module Belugas
 
       def [](engine_name)
         if dev_mode?
-          { "channels" => { "stable" => "whalesil/belugas-#{engine_name}:latest" } }
+          { "channels" => { "stable" => "gueils/belugas-#{engine_name}:latest" } }
         else
           @config[engine_name]
         end
