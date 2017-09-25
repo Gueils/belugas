@@ -1,5 +1,5 @@
-[![Code Climate](https://codeclimate.com/github/WhalesIL/belugas/badges/gpa.svg)](https://codeclimate.com/github/WhalesIL/belugas)
-[![Build Status](https://travis-ci.org/WhalesIL/belugas.svg?branch=master)](https://travis-ci.org/WhalesIL/belugas)
+[![Code Climate](https://codeclimate.com/github/gueils/belugas/badges/gpa.svg)](https://codeclimate.com/github/gueils/belugas)
+[![Build Status](https://travis-ci.org/gueils/belugas.svg?branch=master)](https://travis-ci.org/gueils/belugas)
 
 <p align="center">
   <img src="belugas.png" height="300px" alt="Belugas" />
@@ -26,16 +26,16 @@
 
 ## Why?
 
-`belugas` is part of the [Whales](https://github.com/WhalesIL/whales) ecosystem: A set of tools to automatically dockerize your applications.
+`belugas` is part of the [Whales](https://github.com/gueils/whales) ecosystem: A set of tools to automatically dockerize your applications.
 
 ## Belugas Engines
 
 Belugas has a micro-service oriented architecture conformed by the following engines:
 
-- [Belugas Ruby](https://github.com/WhalesIL/belugas-ruby)
-- [Belugas PHP](https://github.com/WhalesIL/belugas)
-- [Belugas Python](https://github.com/WhalesIL/belugas-python)
-- [Belugas Java](https://github.com/WhalesIL/belugas-java) - _In progress_
+- [Belugas Ruby](https://github.com/gueils/belugas-ruby)
+- [Belugas PHP](https://github.com/gueils/belugas)
+- [Belugas Python](https://github.com/gueils/belugas-python)
+- [Belugas Node](https://github.com/gueils/belugas-node)
 
 Each of these engines is focus to detect multiple [features](#what-is-a-feature) on a project based on a code static analysis.
 
@@ -80,7 +80,7 @@ The Belugas CLI is distributed and run as a [Docker](https://hub.docker.com/r/ic
 Fire up your terminal and run
 
 ```console
-docker pull icalialabs/belugas:latest
+docker pull gueils/belugas:development
 ```
 
 And that's it! 
@@ -102,20 +102,20 @@ docker run \
   --volume "$PWD":/code \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /tmp/fdet:/tmp/fdet \
-  icalialabs/belugas analyze . -f json
+  gueils/belugas analyze . -f json
 ```
 
 And voilá! The terminal will stream a json output for each of the features detected
 
 ## Contributing
 
-Everyone is freely to collaborate, just make sure you follow our [code of conduct](https://github.com/WhalesIL/belugas/blob/master/CODE_OF_CONDUCT.md). Thank you [contributors](https://github.com/WhalesIL/belugas/graphs/contributors)!
+Everyone is freely to collaborate, just make sure you follow our [code of conduct](https://github.com/gueils/belugas/blob/master/CODE_OF_CONDUCT.md). Thank you [contributors](https://github.com/gueils/belugas/graphs/contributors)!
 
 ### Create an Issue
 
-Find a bug and don't know how to fix it? Have trouble following the documentation or have a question about the project? Then by all means, please [create an issue](https://github.com/WhalesIL/belugas/issues/new).
+Find a bug and don't know how to fix it? Have trouble following the documentation or have a question about the project? Then by all means, please [create an issue](https://github.com/gueils/belugas/issues/new).
 
-Just please make sure you check [existing issues](https://github.com/WhalesIL/belugas/issues) to see if what you're running into has been addressed already.
+Just please make sure you check [existing issues](https://github.com/gueils/belugas/issues) to see if what you're running into has been addressed already.
 
 ### Submit a Pull Request
 
@@ -129,7 +129,7 @@ Once you've created a pull request, mainteners will chime in to review your prop
 
 ### I want to contribute but don't know where to start
 
-That's great also! We already have some [open issues](https://github.com/WhalesIL/belugas/issues) for you to dive in.
+That's great also! We already have some [open issues](https://github.com/gueils/belugas/issues) for you to dive in.
 
 ## Credits
 

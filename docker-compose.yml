@@ -6,7 +6,7 @@ volumes:
 
 services:
   app:
-    image: icalialabs/belugas:development
+    image: gueils/belugas:development
     build:
       context: .
       dockerfile: dev.Dockerfile
