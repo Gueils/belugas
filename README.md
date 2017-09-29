@@ -3,7 +3,8 @@
 </p>
 
 ![Made with Love by Icalia Labs](https://img.shields.io/badge/With%20love%20by-Icalia%20Labs-ff3434.svg)
-
+[![](https://images.microbadger.com/badges/version/gueils/belugas.svg)](https://microbadger.com/images/gueils/belugas)
+[![](https://images.microbadger.com/badges/image/gueils/belugas.svg)](https://microbadger.com/images/gueils/belugas)
 ## Overview
 
 `belugas` is a command line interface for the Project Feature detection analysis platform. It allows you to run feature detector [engines](#belugas-engines) on your local machine inside of Docker containers. 
@@ -79,7 +80,7 @@ The Belugas CLI is distributed and run as a [Docker](https://hub.docker.com/r/ic
 Fire up your terminal and run
 
 ```console
-docker pull gueils/belugas:development
+docker pull gueils/belugas:latest
 ```
 
 And that's it! 
@@ -101,7 +102,7 @@ docker run \
   --volume "$PWD":/code \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /tmp/fdet:/tmp/fdet \
-  gueils/belugas analyze . -f json
+  gueils/belugas:latest analyze . -f json
 ```
 
 And voilá! The terminal will stream a json output for each of the features detected
