@@ -56,7 +56,7 @@ php:
   description: Static analysis tool which detects features of php projects.
   community: false
   run_if:
-    engines::
+    engines:
       - linguist
     features:
       - PHP
@@ -64,7 +64,7 @@ node:
   channels:
     stable: gueils/belugas-node:latest
   description: Static analysis tool which detects features of node projects.
-  community: true
+  community: false
 
 # dotnet:
 #   channels:
