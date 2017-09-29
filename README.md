@@ -1,9 +1,8 @@
-[![Code Climate](https://codeclimate.com/github/gueils/belugas/badges/gpa.svg)](https://codeclimate.com/github/gueils/belugas)
-[![Build Status](https://travis-ci.org/gueils/belugas.svg?branch=master)](https://travis-ci.org/gueils/belugas)
-
 <p align="center">
   <img src="belugas.png" height="300px" alt="Belugas" />
 </p>
+
+![Made with Love by Icalia Labs](https://img.shields.io/badge/With%20love%20by-Icalia%20Labs-ff3434.svg)
 
 ## Overview
 
