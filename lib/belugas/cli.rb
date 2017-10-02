@@ -10,7 +10,6 @@ module Belugas
     autoload :Command, "belugas/cli/command"
     autoload :Console, "belugas/cli/console"
     autoload :Engines, "belugas/cli/engines"
-    autoload :Help, "belugas/cli/help"
     autoload :Init, "belugas/cli/init"
     autoload :Prepare, "belugas/cli/prepare"
     autoload :Runner, "belugas/cli/runner"

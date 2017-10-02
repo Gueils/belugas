@@ -11,13 +11,13 @@
 #
 linguist:
   channels:
-    stable: whalesil/belugas-linguist:latest
+    stable: gueils/belugas-linguist:latest
   description: Detects the programming languages used in the analyzed project
   community: true
 
 ruby:
   channels:
-    stable: whalesil/belugas-ruby:latest
+    stable: gueils/belugas-ruby:latest
   description: Static analysis tool which detects features of ruby projects, including rails, etc.
   community: false
   run_if:
@@ -30,7 +30,7 @@ ruby:
 
 python:
   channels:
-    stable: whalesil/belugas-python:latest
+    stable: gueils/belugas-python:latest
   description: Static analysis tool which detects features of python projects, including django, etc.
   community: false
   run_if:
@@ -41,7 +41,7 @@ python:
 
 java:
   channels:
-    stable: icalialabs/belugas-java:latest
+    stable: gueils/belugas-java:latest
   description: Static analysis tool which detects features of java projects.
   community: false
   run_if:
@@ -52,7 +52,7 @@ java:
 
 php:
   channels:
-    stable: whalesil/belugas-php:latest
+    stable: gueils/belugas-php:latest
   description: Static analysis tool which detects features of php projects.
   community: false
   run_if:
@@ -60,6 +60,17 @@ php:
       - linguist
     features:
       - PHP
+
+javascript:
+  channels:
+    stable: gueils/belugas-node:latest
+  description: Static analysis tool which detects features of node projects.
+  community: false
+  run_if:
+    engines::
+      - linguist
+    features:
+      - Javascript
 
 # dotnet:
 #   channels:

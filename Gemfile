@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rake', '~> 12.0'
 gem 'activesupport', '>= 4.2'
 gem 'codeclimate', '~> 0.43.1'
+gem "slack-notifier"
 
 group :development, :test do
   gem 'byebug'
