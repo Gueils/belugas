@@ -66,6 +66,17 @@ node:
   description: Static analysis tool which detects features of node projects.
   community: false
 
+javascript:
+  channels:
+    stable: gueils/belugas-node:latest
+  description: Static analysis tool which detects features of node projects.
+  community: false
+  run_if:
+    engines::
+      - linguist
+    features:
+      - Javascript
+
 # dotnet:
 #   channels:
 #     stable: whalesil/beluga-dotnet

@@ -1,3 +1,5 @@
+require 'rescuer'
+
 module Belugas
   module CLI
     class Analyze < Command
@@ -12,6 +14,7 @@ module Belugas
       end
 
       def run
+        rescuer = Rescuer.new
         Dir.chdir(MountedPath.code.container_path) do
           # runner = EnginesRunner.new(registry, formatter, source_dir, config, path_options)
           runner = EnginesRunner.new(registry, formatter, source_dir, path_options)
@@ -19,6 +22,7 @@ module Belugas
         end
 
       rescue EnginesRunner::InvalidEngineName => ex
+        rescuer.ping ex.message
         fatal(ex.message)
       end
 
