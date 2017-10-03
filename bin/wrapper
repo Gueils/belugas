@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# This is a script intended to be run on the host, which will launch the Belugas Docker container.
+# Blatantly copied from codeclimate/codeclimate.
+invalid_setup() {
+  local reason=$1
+
+  cat >&2 <<EOF
+Your Docker setup does not support the belugas wrapper script:
+  > $reason
+We require a local Docker daemon that supports communication via the default
+socket path.
+Please use \`docker run' to run the \`icalialabs/belugas' image directly.
+See https://github.com/icalialabs/belugas for more details.
+EOF
+  exit 1
+}
+
+socket_missing() {
+  invalid_setup "/var/run/docker.sock must exist as a Unix domain socket"
+}
+
+invalid_docker_host() {
+  local host=$1
+
+  invalid_setup "invalid DOCKER_HOST=$host, must be unset or unix:///var/run/docker.sock"
+}
+
+if [ -n "$DOCKER_MACHINE_NAME" ] && command -v docker-machine > /dev/null 2>&1; then
+  docker-machine ssh $DOCKER_MACHINE_NAME -- \
+    test -S /var/run/docker.sock > /dev/null 2>&1 || socket_missing
+
+  docker-machine ssh $DOCKER_MACHINE_NAME -- \
+    'test -n "$DOCKER_HOST" -a "$DOCKER_HOST" != "unix:///var/run/docker.sock"' > /dev/null 2>&1 \
+    && invalid_docker_host $(docker-machine ssh $DOCKER_MACHINE_NAME -- 'echo "$DOCKER_HOST"')
+else
+  test -S /var/run/docker.sock || socket_missing
+  test -n "$DOCKER_HOST" -a "$DOCKER_HOST" != "unix:///var/run/docker.sock" \
+    && invalid_docker_host "$DOCKER_HOST"
+fi
+
+docker_run() {
+  exec docker run \
+    --interactive --rm \
+    --env BELUGAS_CODE \
+    --env BELUGAS_TMP \
+    --env BELUGAS_DEBUG \
+    --env CONTAINER_MAXIMUM_OUTPUT_BYTES \
+    --env CONTAINER_TIMEOUT_SECONDS \
+    --env ENGINE_MEMORY_LIMIT_BYTES \
+    --volume "$BELUGAS_CODE":/code \
+    --volume "$BELUGAS_TMP":/tmp/cc \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    "$@"
+}
+
+if [ -z "$BELUGAS_CODE" ]; then
+  export BELUGAS_CODE=$PWD
+fi
+
+if [ -z "$BELUGAS_TMP" ]; then
+  export BELUGAS_TMP=/tmp/fdet
+fi
+
+if [ -t 0 ] && [ -t 1 ]; then
+  docker_run --tty icalialabs/belugas "$@"
+else
+  docker_run icalialabs/belugas "$@"
+fi

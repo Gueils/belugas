@@ -31,9 +31,10 @@ spec/
 # Ignore bash / IRB / Byebug history files
 .*_hist*
 
-# Ignore development executables:
+# Ignore development and other executables:
 bin/console
 bin/setup
+bin/wrapper
 
 # Ignore the engine spec documentation - there's no case it should be distributed:
 documented-spec/
